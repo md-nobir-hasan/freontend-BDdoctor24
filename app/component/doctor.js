@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 const doctors = [
   {
@@ -119,7 +120,7 @@ const IndexPage = () => (
         >
           <div>
           <p className="text-gray-600 text-xl font-semibold my-2">{doctor.specialty}</p>
-            <h3 className="text-xl font-semibold">{doctor.name}</h3>
+          <Link href='/doctors-details'><h3 className="text-xl font-semibold">{doctor.name}</h3></Link>
             <p className="text-gray-600">{doctor.degrees}</p>
             <p className="text-gray-600">{doctor.position}</p>
             <p className="text-gray-600">{doctor.institution}</p>
@@ -128,7 +129,7 @@ const IndexPage = () => (
           </div>
           <div className="flex flex-col justify-between items-end">
             <Image src={doctor.logo} alt="doctor logo" width={150} height={150} />
-            <button className="mt-2  py-2 text-green-600 rounded-lg">
+            <button className="mt-2 py-2 text-green-600 rounded-lg">
               Book Appointment
             </button>
           </div>
