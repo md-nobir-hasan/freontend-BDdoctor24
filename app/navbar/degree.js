@@ -4,6 +4,8 @@ import { AiOutlineDown, AiOutlineUp } from "react-icons/ai";
 
 export default function Degree () {
     const [show, setShow] = useState(true);
+    const [inputChecked,setInputChecked] = useState(false);
+    
      function handleShowClick () {
         setShow(!show)
      }
@@ -30,7 +32,13 @@ export default function Degree () {
                 </p>
             </label>
             <label htmlFor="check-ms" className="text-xl font-semibold mb-2 flex gap-2">
-                <input id="check-ms" type="checkbox" className="w-4" />
+                <input 
+                id="check-ms" 
+                value="checked"
+                onClick={() => setInputChecked(e.target.checked)}
+                type="checkbox" 
+                className="w-4"
+                 />
                MS
             </label>
             <label htmlFor="check-fcps" className="text-xl font-semibold mb-2 flex gap-2">

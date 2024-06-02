@@ -1,12 +1,12 @@
 import { Input } from "postcss";
 import SearchBar from "./searchBar";
-import Image from "next/image";
 import Degree from "./degree";
 import Designation from "./designation";
 import HospitalWise from "./hospital";
 import SpecialtyWise from "./specialty";
 import PactecingDay from "./pactecing";
 import Location from "./location";
+import ExperienceRange from "./experienceRang";
 export default function SideNavBar(){
     return(
      
@@ -23,7 +23,7 @@ export default function SideNavBar(){
             <SearchBar/>
          </div>
          <div className="my-4 shadow-lg rounded-lg">
-         <Image src="/experience.png" alt="experience" width={1000} height={100} />
+          <ExperienceRange/>
          </div>
           <div className="my-4">
             <Degree/>
