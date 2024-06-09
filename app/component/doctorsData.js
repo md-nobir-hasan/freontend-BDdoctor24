@@ -1,0 +1,87 @@
+const products = [
+    {
+        id: 1,
+        name: "Dr. Lutfor Rahman",
+        specialty: "Cardiac Surgeon",
+        degrees: ["MS", "MD"],
+        experience: "20+ Years of Experience",
+        hospital: "LabAid Specialized Hospital",
+        logo: "/next.svg", // Replace with your image path
+      },
+      {
+        id: 2,
+        name: "Dr. Jane Doe",
+        specialty: "Cardiac Surgeon",
+        degrees: ["FCPS", "MD"],
+        experience: "15+ Years of Experience",
+        hospital: "Apollo Hospital",
+        logo: "/vercel.svg", // Replace with your image path
+      },
+    {
+        id: 3,
+      name: "Dr. Lutfor Rahman",
+      specialty: "Cardiac Surgeon",
+      degrees: ["MBBS", "DGO (DU)", "MCPS", "MS (DU)", "FCPS"],
+      experience: "20+ Years of Experience",
+      hospital: "LabAid Specialized Hospital",
+      logo: "/hospital-logo.png",
+    },
+    { 
+        id: 4,
+      name: "Dr. Lutfor Rahman",
+      specialty: "Cardiac Surgeon",
+      degrees: "MBBS, DGO (DU), MCPS, MS (DU), FCPS",
+      experience: "20+ Years of Experience",
+      hospital: "LabAid Specialized Hospital",
+      logo: "/hospital-logo.png",
+    },
+    {
+      id: 5,
+      name: "Dr. Lutfor Rahman",
+      specialty: "Cardiac Surgeon",
+      degrees: "MBBS, DGO (DU), MCPS, MS (DU), FCPS",
+      experience: "20+ Years of Experience",
+      hospital: "LabAid Specialized Hospital",
+      logo: "/hospital-logo.png",
+    },
+    {
+      id: 6,
+      specialty: "Cardiac Surgeon",
+      name: "Dr. Lutfor Rahman",
+      specialty: "Cardiac Surgeon",
+      degrees: "MBBS, DGO (DU), MCPS, MS (DU), FCPS",
+      experience: "20+ Years of Experience",
+      hospital: "LabAid Specialized Hospital",
+      logo: "/hospital-logo.png",
+    },
+    {
+        id: 7,
+      name: "Dr. Lutfor Rahman",
+      specialty: "Cardiac Surgeon",
+      degrees: "MBBS, DGO (DU), MCPS, MS (DU), FCPS",
+      experience: "20+ Years of Experience",
+      hospital: "LabAid Specialized Hospital",
+      logo: "/hospital-logo.png",
+    },
+    {
+        id: 8,
+      name: "Dr. Lutfor Rahman",
+      specialty: "Cardiac Surgeon",
+      degrees: "MBBS, DGO (DU), MCPS, MS (DU), FCPS",
+      experience: "20+ Years of Experience",
+      hospital: "LabAid Specialized Hospital",
+      logo: "/hospital-logo.png",
+    },
+    {
+        id: 9,
+      name: "Dr. Lutfor Rahman",
+      specialty: "Cardiac Surgeon",
+      degrees: "MBBS, DGO (DU), MCPS, MS (DU), FCPS",
+      experience: "20+ Years of Experience",
+      hospital: "LabAid Specialized Hospital",
+      logo: "/hospital-logo.png",
+    },
+
+  ];
+
+  export default products

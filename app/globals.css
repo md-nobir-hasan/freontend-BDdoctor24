@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+   box-sizing: border-box;
+   padding: 0;
+   margin: 0;
+}
+
+
+@media screen and (max-width: 1280px) {
+   .doctors{
+      padding-left: 60px;
+      padding-right: 80px;
+   }
+  
+ }
+ @media screen and (max-width: 1024px) {
+   .doctors{
+      padding-left: 50px;
+      padding-right: 60px;
+   }
+  
+ }
+ @media screen and (max-width: 900px) {
+   .doctors{
+      padding-left: 15px;
+      padding-right: 15px;
+   }
+  
+ }
+
+ 
+ /* Show menu icon on smaller screens */
+ @media (max-width: 768px) {
+   
+ }
+ 
+ @media screen and (max-width: 640px) {
+  
+ }
+ @media screen and (min-width: 360px) {
+  
+ }
+
+
+.background-img{
+   background-image: url(/medical-img.jpg);
+   background-repeat: no-repeat;
+   background-position: center;
+   background-size: cover;
+}
