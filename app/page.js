@@ -58,7 +58,7 @@ export default function Home() {
     const fetchOptions = async () => {
       try {
         const response = await fetch(
-          "http://admin.treatmentopportunity.com/api/categories"
+          "https://admin.treatmentopportunity.com/api/categories"
         );
 
         if (!response.ok) {
@@ -80,7 +80,7 @@ export default function Home() {
     const fetchDoctors = async () => {
       try {
         const response = await fetch(
-          "http://admin.treatmentopportunity.com/api/doctors"
+          "https://admin.treatmentopportunity.com/api/doctors"
         );
 
         if (!response.ok) {
