@@ -19,8 +19,7 @@ export default function AllSpecialty() {
         }
 
         const data = await response.json();
-        console.log(data);
-        setOptions(data.map(item => ({ label: item.title, value: item.title })));
+        setOptions(data.data.map(item => ({ label: item.title, value: item.title })));
       } catch (error) {
         console.error('Error fetching options:', error);
       }

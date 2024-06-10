@@ -24,12 +24,9 @@ export default function AllDoctors() {
   const [searchQuery, setSearchQuery] = useState("");
   const [experienceRange, setExperienceRange] = useState([0, 55]);
   const [showSidebar, setShowSidebar] = useState(false);
-  const router = useRouter();
-  const { searchTerm, options } = router.query;
   const [doctors, setDoctors] = useState([]);
   const sidebarRef = useRef(null);
   
-
   const handleMenuClick = () => {
     setShowSidebar(!showSidebar);
   };
@@ -41,19 +38,39 @@ export default function AllDoctors() {
   };
 
   useEffect(() => {
-    console.log(searchTerm,options)
-    if (searchTerm && options) {
-      // Fetch doctors based on name and category
-      fetch(`http://admin.treatmentopportunity.com/api/doctors/search?name=${searchTerm}&category=${options}`)
-          .then((res) => res.json())
-          .then((data) => setDoctors(data.data))
-          .catch((error) => console.error('Error fetching doctors:', error));
-  }
+    const fetchDoctors = async () => {
+      const name = localStorage.getItem("name");
+      const category = localStorage.getItem("category");
+      // console.log(name, category,'i am localstorage');
+      if (name && category) {
+        try {
+          console.log(name,category )
+          const response = await fetch(
+            `http://admin.treatmentopportunity.com/api/doctors/search?name=${name}&category=${category}`
+          );
+
+          if (!response.ok) {
+            throw new Error("Failed to fetch data");
+          }
+
+          const data = await response.json();
+          console.log("Doctors:", data);
+          setDoctors(
+            data.data.map((item) => ({ label: item.title, value: item.title }))
+          );
+        } catch (error) {
+          console.error("Error fetching options:", error);
+        }
+      }
+    }
+
+    fetchDoctors();
+   
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [searchTerm,options]);
+  },);
 
   const handleCheckboxChange = (type, value) => {
     switch (type) {
@@ -87,40 +104,40 @@ export default function AllDoctors() {
     }
   };
 
-  const filteredProducts = products.filter((product) => {
-    const degreeMatch = selectedDegrees.length
-      ? selectedDegrees.some((degree) => product.degrees.includes(degree))
-      : true;
-    const designationMatch = selectedDesignations.length
-      ? selectedDesignations.includes(product.designation)
-      : true;
-    const specialtyMatch = selectedSpecialties.length
-      ? selectedSpecialties.includes(product.specialty)
-      : true;
-    const hospitalMatch = selectedHospital.length
-      ? selectedHospital.includes(product.hospital)
-      : true;
-      const locationMatch = selectedLocation.length
-      ? selectedLocation.includes(product.location)
-      : true;
-      const experienceMatch =
-      product.experience >= experienceRange[0] && product.experience <= experienceRange[1];
+  // const filteredProducts = products.filter((product) => {
+  //   const degreeMatch = selectedDegrees.length
+  //     ? selectedDegrees.some((degree) => product.degrees.includes(degree))
+  //     : true;
+  //   const designationMatch = selectedDesignations.length
+  //     ? selectedDesignations.includes(product.designation)
+  //     : true;
+  //   const specialtyMatch = selectedSpecialties.length
+  //     ? selectedSpecialties.includes(product.specialty)
+  //     : true;
+  //   const hospitalMatch = selectedHospital.length
+  //     ? selectedHospital.includes(product.hospital)
+  //     : true;
+  //     const locationMatch = selectedLocation.length
+  //     ? selectedLocation.includes(product.location)
+  //     : true;
+  //     const experienceMatch =
+  //     product.experience >= experienceRange[0] && product.experience <= experienceRange[1];
 
-      const searchMatch = (product.name && product.name.toLowerCase().includes(searchQuery.toLowerCase())) ||
-      (product.specialty && product.specialty.toLowerCase().includes(searchQuery.toLowerCase())) ||
-      (product.hospital && product.hospital.toLowerCase().includes(searchQuery.toLowerCase())) ||
-      (product.location && product.location.toLowerCase().includes(searchQuery.toLowerCase()));
+  //     const searchMatch = (product.name && product.name.toLowerCase().includes(searchQuery.toLowerCase())) ||
+  //     (product.specialty && product.specialty.toLowerCase().includes(searchQuery.toLowerCase())) ||
+  //     (product.hospital && product.hospital.toLowerCase().includes(searchQuery.toLowerCase())) ||
+  //     (product.location && product.location.toLowerCase().includes(searchQuery.toLowerCase()));
 
-      return (
-        degreeMatch &&
-        designationMatch &&
-        specialtyMatch &&
-        hospitalMatch &&
-        locationMatch &&
-        experienceMatch &&
-        searchMatch
-      );
-  });
+  //     return (
+  //       degreeMatch &&
+  //       designationMatch &&
+  //       specialtyMatch &&
+  //       hospitalMatch &&
+  //       locationMatch &&
+  //       experienceMatch &&
+  //       searchMatch
+  //     );
+  // });
 
   const days = [
     { id: "sat", label: "Sat" },
@@ -136,19 +153,19 @@ export default function AllDoctors() {
     <div className="doctors grid grid-cols-5 max-xl:grid-cols-7 gap-6 max-sm:gap-2 max-lg:gap-4 pr-[140px] pl-[100px]">
       
       <div className="max-xl:col-span-2">
-      <button onClick={handleMenuClick} className="text-2xl hidden max-md:block max-sm:absolute max-sm:right-2 max-sm:top-2">
+      <button onClick={handleMenuClick} className="hidden text-2xl max-md:block max-sm:absolute max-sm:right-2 max-sm:top-2">
           {showSidebar ? <AiOutlineClose /> : <AiOutlineMenu />}
         </button>
       <aside 
       ref={sidebarRef}
       className={`transition-transform duration-300 transform md:transform-none ${showSidebar ? 'translate-x-0' : '-translate-x-full'} absolute inset-y-0 max-md:top-[10px] left-0 w-64 bg-white shadow-lg md:relative md:translate-x-0`}>
         <div>
-        <div className="flex justify-between items-center p-4 shadow-lg rounded-lg max-sm:my-2 my-4 bg-white">
+        <div className="flex items-center justify-between p-4 my-4 bg-white rounded-lg shadow-lg max-sm:my-2">
              <p className="text-xl">
                Filter: {selectedDegrees.length + selectedDesignations.length + selectedSpecialties.length + selectedHospital.length + selectedLocation.length}
              </p>
              <button
-               className="text-xl bg-slate-200 py-1 px-4 max-xl:px-2"
+               className="px-4 py-1 text-xl bg-slate-200 max-xl:px-2"
                onClick={() => {
                  setSelectedDegrees([]);
                  setSelectedDesignations([]);
@@ -162,8 +179,8 @@ export default function AllDoctors() {
                Clear
              </button>
            </div>
-           <div className="bg-white rounded-lg p-4 max-sm:my-2 my-4 shadow-lg">
-           <form className="w-full relative">
+           <div className="p-4 my-4 bg-white rounded-lg shadow-lg max-sm:my-2">
+           <form className="relative w-full">
                <input
                  type='search'
                  placeholder='Search Doctors'
@@ -171,17 +188,17 @@ export default function AllDoctors() {
                  value={searchQuery}
                  onChange={(e) => setSearchQuery(e.target.value)}
                />
-               <button className='absolute right-2 top-1/2 -translate-y-1/2 px-4 bg-white rounded-full'>
+               <button className='absolute px-4 -translate-y-1/2 bg-white rounded-full right-2 top-1/2'>
                  <AiOutlineSearch size={22} color='green' />
                </button>
              </form>
            </div>
-           <div className="my-4 shadow-lg rounded-lg">
+           <div className="my-4 rounded-lg shadow-lg">
              <ExperienceRange experience={experienceRange} setExperience={setExperienceRange} />
            </div>
            {/* Degree Section */}
            <div className="my-4">
-             <div className="flex flex-col p-4 shadow-lg rounded-lg bg-white">
+             <div className="flex flex-col p-4 bg-white rounded-lg shadow-lg">
                <div className="flex justify-between">
                  <div className="mb-2">
                    <p className="text-xl font-semibold">Degree</p>
@@ -198,7 +215,7 @@ export default function AllDoctors() {
                      <label
                        key={degree}
                        htmlFor={`check-degree-${degree}`}
-                       className="text-xl font-semibold mb-2 flex gap-2"
+                       className="flex gap-2 mb-2 text-xl font-semibold"
                      >
                        <input
                          id={`check-degree-${degree}`}
@@ -216,7 +233,7 @@ export default function AllDoctors() {
            </div>
            {/* Designation Section */}
            <div className="my-4">
-             <div className="flex flex-col p-4 shadow-lg rounded-lg bg-white">
+             <div className="flex flex-col p-4 bg-white rounded-lg shadow-lg">
                <div className="flex justify-between">
                  <div className="mb-2">
                    <p className="text-xl font-semibold">Designation</p>
@@ -233,7 +250,7 @@ export default function AllDoctors() {
                      <label
                        key={designation}
                        htmlFor={`check-designation-${designation}`}
-                       className="text-xl font-semibold mb-2 flex gap-2"
+                       className="flex gap-2 mb-2 text-xl font-semibold"
                      >
                        <input
                          id={`check-designation-${designation}`}
@@ -251,7 +268,7 @@ export default function AllDoctors() {
            </div>
            {/* Specialty Section */}
            <div className="my-4">
-             <div className="flex flex-col p-4 shadow-lg rounded-lg bg-white">
+             <div className="flex flex-col p-4 bg-white rounded-lg shadow-lg">
                <div className="flex justify-between">
                  <div className="mb-2">
                    <p className="text-xl font-semibold">Specialty wise</p>
@@ -268,7 +285,7 @@ export default function AllDoctors() {
                      <label
                        key={specialty}
                        htmlFor={`check-specialty-${specialty}`}
-                       className="text-xl font-semibold mb-2 flex gap-2"
+                       className="flex gap-2 mb-2 text-xl font-semibold"
                      >
                        <input
                          id={`check-specialty-${specialty}`}
@@ -286,7 +303,7 @@ export default function AllDoctors() {
            </div>
            {/* ----hospital-section---- */}
            <div className="my-4">
-             <div className="flex flex-col p-4 shadow-lg rounded-lg bg-white">
+             <div className="flex flex-col p-4 bg-white rounded-lg shadow-lg">
                <div className="flex justify-between">
                  <div className="mb-2">
                    <p className="text-xl font-semibold">Hospital wise</p>
@@ -303,7 +320,7 @@ export default function AllDoctors() {
                      <label
                        key={hospital}
                        htmlFor={`check-hospital-${hospital}`}
-                       className="text-xl font-semibold mb-2 flex gap-2"
+                       className="flex gap-2 mb-2 text-xl font-semibold"
                      >
                        <input
                          id={`check-hospital-${hospital}`}
@@ -322,7 +339,7 @@ export default function AllDoctors() {
            {/* ---hospital-section-end--- */}
            {/* ----pactecinDay--start--- */}
            <div className="my-4">
-             <div className="flex flex-col p-4 shadow-lg rounded-lg bg-white">
+             <div className="flex flex-col p-4 bg-white rounded-lg shadow-lg">
                <div className="flex justify-between">
                  <div className="mb-2">
                    <p className="text-xl font-semibold">Practicing day</p>
@@ -340,7 +357,7 @@ export default function AllDoctors() {
                        <div key={index}>
                          <label
                            htmlFor={`check-${day.id}`}
-                           className="text-xl font-semibold mb-2 flex gap-2"
+                           className="flex gap-2 mb-2 text-xl font-semibold"
                          >
                            <input
                              id={`check-${day.id}`}
@@ -357,7 +374,7 @@ export default function AllDoctors() {
                        <p>Morning</p>
                        <p>Evening</p>
                      </div>
-                     <div className="mt-2 h-4 w-full bg-zinc-300 rounded-lg flex justify-between items-center">
+                     <div className="flex items-center justify-between w-full h-4 mt-2 rounded-lg bg-zinc-300">
                        <button
                          onClick={() => setSelectedTime("morning")}
                          className={`transition duration-700 ease-in-out h-full w-20 rounded-xl ${
@@ -378,7 +395,7 @@ export default function AllDoctors() {
            </div>
            {/* ----pactecinDay--end--- */}
            <div className="my-4">
-             <div className="flex flex-col p-4 shadow-lg rounded-lg bg-white">
+             <div className="flex flex-col p-4 bg-white rounded-lg shadow-lg">
                <div className="flex justify-between">
                  <div className="mb-2">
                    <p className="text-xl font-semibold">Location</p>
@@ -395,7 +412,7 @@ export default function AllDoctors() {
                      <label
                        key={location}
                        htmlFor={`check-location-${location}`}
-                       className="text-xl font-semibold mb-2 flex gap-2"
+                       className="flex gap-2 mb-2 text-xl font-semibold"
                      >
                        <input
                          id={`check-location-${location}`}
@@ -425,10 +442,10 @@ export default function AllDoctors() {
               {doctors.map((doctor) => (
                 <div
                   key={doctor.id}
-                  className="flex justify-between max-sm:flex-col sm:items-center border p-4 max-sm:p-2 rounded-lg shadow-lg bg-white my-4"
+                  className="flex justify-between p-4 my-4 bg-white border rounded-lg shadow-lg max-sm:flex-col sm:items-center max-sm:p-2"
                 >
                   <div>
-                    <p className="text-gray-600 text-xl max-sm:text-md font-semibold sm:my-2">
+                    <p className="text-xl font-semibold text-gray-600 max-sm:text-md sm:my-2">
                       {doctor.specialty}
                     </p>
                     <Link href="/doctors-details">
@@ -439,7 +456,7 @@ export default function AllDoctors() {
                     <p className="text-gray-600 max-sm:text-[16px] max-sm:font-[500]">{doctor.hospital}</p>
                     <p className="text-gray-600 max-sm:text-[16px] max-sm:font-[500]">{doctor.location}</p>
                   </div>
-                  <div className="flex sm:flex-col sm:gap-16 justify-between sm:items-end max-sm:my-4">
+                  <div className="flex justify-between sm:flex-col sm:gap-16 sm:items-end max-sm:my-4">
                     <Image
                       src={doctor.logo}
                       alt="doctor logo"
