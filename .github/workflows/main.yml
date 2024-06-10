@@ -13,5 +13,5 @@ jobs:
       with:
         server: ftp.bddoctor24.com
         username: frontend-bddoctor@treatmentopportunity.com
-        password: ${{ secrets.ftp_password }}
+        password: ${{ secrets.FTP_PASSWORD }}
         local-dir: ./out/
