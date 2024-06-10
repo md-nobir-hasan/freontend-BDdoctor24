@@ -27,24 +27,6 @@ export default function Home() {
     localStorage.setItem("category", e.target.value);
   };
   const handleSearch = (event) => {
-    event.preventDefault();
-    // const pathname = '/dashboard';
-    // const query = {
-    //   searchTerm: searchTerm || '',
-    //   category: category || '',
-    // };
-
-    // try {
-    //  if (router.isReady) {
-    //             router.push({
-    //                 pathname,
-    //                 query,
-    //             });
-    //         }
-    // } catch (error) {
-    //   console.error('Error navigating:', error);
-    // }
-
     setFilteredDoctors(
       doctors.filter(
         (doctor) =>
