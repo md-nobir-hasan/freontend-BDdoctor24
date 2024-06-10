@@ -7,7 +7,7 @@ export default function AllSpecialty() {
   useEffect(() => {
     const fetchOptions = async () => {
       try {
-        const response = await fetch("http://admin.treatmentopportunity.com/api/districts", {
+        const response = await fetch("https://admin.treatmentopportunity.com/api/districts", {
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
