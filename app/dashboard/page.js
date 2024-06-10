@@ -41,7 +41,7 @@ export default function AllDoctors() {
     const fetchDoctors = async () => {
       const name = localStorage.getItem("name");
       const category = localStorage.getItem("category");
-      // console.log(name, category,'i am localstorage');
+      console.log(name, category,'i am localstorage');
       if (name && category) {
         try {
           console.log(name,category )
@@ -52,9 +52,12 @@ export default function AllDoctors() {
           if (!response.ok) {
             throw new Error("Failed to fetch data");
           }
-
+          console.log(response, 'i am response');
           const data = await response.json();
-          console.log("Doctors:", data);
+          console.log("Doctors:", data.data);
+          if (data.data) {
+            
+          }
           setDoctors(
             data.data.map((item) => ({ label: item.title, value: item.title }))
           );
@@ -70,7 +73,7 @@ export default function AllDoctors() {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  },);
+  });
 
   const handleCheckboxChange = (type, value) => {
     switch (type) {
@@ -104,40 +107,40 @@ export default function AllDoctors() {
     }
   };
 
-  // const filteredProducts = products.filter((product) => {
-  //   const degreeMatch = selectedDegrees.length
-  //     ? selectedDegrees.some((degree) => product.degrees.includes(degree))
-  //     : true;
-  //   const designationMatch = selectedDesignations.length
-  //     ? selectedDesignations.includes(product.designation)
-  //     : true;
-  //   const specialtyMatch = selectedSpecialties.length
-  //     ? selectedSpecialties.includes(product.specialty)
-  //     : true;
-  //   const hospitalMatch = selectedHospital.length
-  //     ? selectedHospital.includes(product.hospital)
-  //     : true;
-  //     const locationMatch = selectedLocation.length
-  //     ? selectedLocation.includes(product.location)
-  //     : true;
-  //     const experienceMatch =
-  //     product.experience >= experienceRange[0] && product.experience <= experienceRange[1];
+  const filteredDoctors = doctors.filter((product) => {
+    const degreeMatch = selectedDegrees.length
+      ? selectedDegrees.some((degree) => product.degrees.includes(degree))
+      : true;
+    const designationMatch = selectedDesignations.length
+      ? selectedDesignations.includes(product.designation)
+      : true;
+    const specialtyMatch = selectedSpecialties.length
+      ? selectedSpecialties.includes(product.specialty)
+      : true;
+    const hospitalMatch = selectedHospital.length
+      ? selectedHospital.includes(product.hospital)
+      : true;
+      const locationMatch = selectedLocation.length
+      ? selectedLocation.includes(product.location)
+      : true;
+      const experienceMatch =
+      product.experience >= experienceRange[0] && product.experience <= experienceRange[1];
 
-  //     const searchMatch = (product.name && product.name.toLowerCase().includes(searchQuery.toLowerCase())) ||
-  //     (product.specialty && product.specialty.toLowerCase().includes(searchQuery.toLowerCase())) ||
-  //     (product.hospital && product.hospital.toLowerCase().includes(searchQuery.toLowerCase())) ||
-  //     (product.location && product.location.toLowerCase().includes(searchQuery.toLowerCase()));
+      const searchMatch = (product.name && product.name.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (product.specialty && product.specialty.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (product.hospital && product.hospital.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (product.location && product.location.toLowerCase().includes(searchQuery.toLowerCase()));
 
-  //     return (
-  //       degreeMatch &&
-  //       designationMatch &&
-  //       specialtyMatch &&
-  //       hospitalMatch &&
-  //       locationMatch &&
-  //       experienceMatch &&
-  //       searchMatch
-  //     );
-  // });
+      return (
+        degreeMatch &&
+        designationMatch &&
+        specialtyMatch &&
+        hospitalMatch &&
+        locationMatch &&
+        experienceMatch &&
+        searchMatch
+      );
+  });
 
   const days = [
     { id: "sat", label: "Sat" },
@@ -451,7 +454,7 @@ export default function AllDoctors() {
                     <Link href="/doctors-details">
                       <h3 className="text-xl max-sm:text-[16px] max-sm:font-[600] font-semibold">{doctor.name}</h3>
                     </Link>
-                    <p className="text-gray-600 max-sm:text-[16px] max-sm:font-[500]">{doctor.degrees.join(", ")}</p>
+                    {/* <p className="text-gray-600 max-sm:text-[16px] max-sm:font-[500]">{doctor.degrees.join(", ")}</p> */}
                     <p className="text-gray-600 max-sm:text-[16px] max-sm:font-[500]">{doctor.experience}+ Years of Experience</p>
                     <p className="text-gray-600 max-sm:text-[16px] max-sm:font-[500]">{doctor.hospital}</p>
                     <p className="text-gray-600 max-sm:text-[16px] max-sm:font-[500]">{doctor.location}</p>

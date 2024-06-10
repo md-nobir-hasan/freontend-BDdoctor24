@@ -1,27 +1,31 @@
-'use client';
-import React, { useEffect, useState } from 'react'
-import { useRouter } from "next/navigation"
-import Link from "next/link"
-import { FiActivity } from "react-icons/fi"
-
+"use client";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { FiActivity } from "react-icons/fi";
 
 export default function Home() {
   const router = useRouter();
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [options, setOptions] = useState([]);
   const [doctors, setDoctors] = useState([]);
   const [filteredDoctors, setFilteredDoctors] = useState([]);
-  const [category, setCategory] = useState('');
+  const [category, setCategory] = useState("");
   const [isDropdownVisible, setIsDropdownVisible] = useState(false); // Add state for dropdown visibility
 
   const handleSearchTermChange = (e) => {
     setSearchTerm(e.target.value);
-     localStorage.setItem("name", JSON.stringify(searchTerm));
+    localStorage.setItem("name", e.target.value);
+    
+    console.log(localStorage.getItem("name"), searchTerm);
+
     setIsDropdownVisible(true); // Show dropdown when input changes
   };
+
   const HandleCategory = (e) => {
-   localStorage.setItem("category", JSON.stringify(category));
- }
+    setCategory(e.target.value);
+    localStorage.setItem("category", e.target.value);
+  };
   const handleSearch = (event) => {
     event.preventDefault();
     // const pathname = '/dashboard';
@@ -29,7 +33,7 @@ export default function Home() {
     //   searchTerm: searchTerm || '',
     //   category: category || '',
     // };
- 
+
     // try {
     //  if (router.isReady) {
     //             router.push({
@@ -42,8 +46,10 @@ export default function Home() {
     // }
 
     setFilteredDoctors(
-      doctors.filter(doctor =>
-        doctor.name && doctor.name.toLowerCase().includes(searchTerm.toLowerCase())
+      doctors.filter(
+        (doctor) =>
+          doctor.name &&
+          doctor.name.toLowerCase().includes(searchTerm.toLowerCase())
       )
     );
   };
@@ -51,17 +57,21 @@ export default function Home() {
   useEffect(() => {
     const fetchOptions = async () => {
       try {
-        const response = await fetch("http://admin.treatmentopportunity.com/api/categories");
+        const response = await fetch(
+          "http://admin.treatmentopportunity.com/api/categories"
+        );
 
         if (!response.ok) {
-          throw new Error('Failed to fetch data');
+          throw new Error("Failed to fetch data");
         }
 
         const data = await response.json();
-        console.log('Categories:', data);
-        setOptions(data.data.map(item => ({ label: item.title, value: item.title })));
+        console.log("Categories:", data);
+        setOptions(
+          data.data.map((item) => ({ label: item.title, value: item.title }))
+        );
       } catch (error) {
-        console.error('Error fetching options:', error);
+        console.error("Error fetching options:", error);
       }
     };
 
@@ -69,17 +79,19 @@ export default function Home() {
 
     const fetchDoctors = async () => {
       try {
-        const response = await fetch("http://admin.treatmentopportunity.com/api/doctors");
+        const response = await fetch(
+          "http://admin.treatmentopportunity.com/api/doctors"
+        );
 
         if (!response.ok) {
-          throw new Error('Failed to fetch data');
+          throw new Error("Failed to fetch data");
         }
 
         const data = await response.json();
-        console.log('Doctors:', data);
+        console.log("Doctors:", data);
         setDoctors(data.data);
       } catch (error) {
-        console.error('Error fetching doctors:', error);
+        console.error("Error fetching doctors:", error);
       }
     };
 
@@ -88,8 +100,10 @@ export default function Home() {
 
   useEffect(() => {
     setFilteredDoctors(
-      doctors.filter(doctor =>
-        doctor.name && doctor.name.toLowerCase().includes(searchTerm.toLowerCase())
+      doctors.filter(
+        (doctor) =>
+          doctor.name &&
+          doctor.name.toLowerCase().includes(searchTerm.toLowerCase())
       )
     );
   }, [searchTerm, doctors]);
@@ -201,6 +215,7 @@ export default function Home() {
                   <li
                     onClick={() => {
                       setSearchTerm(doctor.name);
+                      localStorage.setItem('name', doctor.name);
                       setIsDropdownVisible(false); // Hide dropdown when a name is clicked
                     }}
                     key={index}
