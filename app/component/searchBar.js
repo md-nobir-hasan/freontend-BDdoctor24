@@ -9,9 +9,9 @@ const SearchBarHome = () => {
     setSearchTerm(event.target.value);
   };
 
-  return (
+  // return (
   
-  );
+  // );
 };
 
 export default SearchBarHome;
