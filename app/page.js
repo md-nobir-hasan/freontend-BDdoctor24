@@ -131,94 +131,93 @@ export default function Home() {
       </div>
 
       <div className="background-img max-sm:h-[500px] max-md:h-[580px] max-xl:h-[600px] h-[650px]">
-        <div className="flex items-center justify-center">
-          <div className="flex flex-col items-center mt-10 w-[90%] md:w-[700px] text-center">
-            <span className="text-[#fff] text-[20px] md:text-[34px] font-[700]">
-              Find doctors and specialties and book your
-            </span>
-            <span className="text-[#fff] text-[20px] md:text-[34px] font-[700]">
-              appointment now
-            </span>
-            <p className="text-[#fff] text-[14px] md:text-[20px] font-[600] mt-4">
-              Experts from all Bangladesh medical fields in one place
-            </p>
+  <div className="flex items-center justify-center">
+    <div className="flex flex-col items-center mt-10 w-[90%] md:w-[700px] text-center">
+      <span className="text-[#fff] text-[20px] md:text-[34px] font-[700]">
+        Find doctors and specialties and book your
+      </span>
+      <span className="text-[#fff] text-[20px] md:text-[34px] font-[700]">
+        appointment now
+      </span>
+      <p className="text-[#fff] text-[14px] md:text-[20px] font-[600] mt-4">
+        Experts from all Bangladesh medical fields in one place
+      </p>
+    </div>
+  </div>
+  <div className="flex justify-center items-center h-[50vh] max-sm:mt-[100px] max-md:mt-[40px] max-xl:mt-[50px]">
+    <div className="relative flex flex-col gap-4 w-[90%] md:w-auto">
+      <div className="flex items-center gap-4 max-sm:gap-2">
+        <div className="bg-white p-2 rounded-full border-2 border-blue-900">
+          <div className="bg-blue-900 p-4 max-sm:p-[10px] rounded-full">
+            <FiActivity color="white" size={20} />
           </div>
         </div>
-        <div className="flex justify-center items-center h-[50vh] max-sm:mt-[100px] max-md:mt-[40px] max-xl:mt-[50px]">
-          <div className="relative flex flex-col gap-4 w-[90%] md:w-auto">
-            <div className="flex items-center gap-4 max-sm:gap-2">
-              <div className="bg-white p-2 rounded-full border-2 border-blue-900">
-                <div className="bg-blue-900 p-4 max-sm:p-[10px] rounded-full">
-                  <FiActivity color="white" size={20} />
-                </div>
-              </div>
-              <div>
-                <p className="text-[16px] md:text-[20px] text-[#fff] font-[700]">
-                  Live Doctors
-                </p>
-                <span className="text-[16px] md:text-[20px] text-[#fff] font-[700]">
-                  500
-                </span>
-              </div>
-            </div>
-            <div className="bg-[#003A9B] p-6 rounded-lg w-full grid grid-cols-1 sm:grid-cols-3 md:grid-cols-6 gap-2">
-           <div>
-           <input
-                type="text"
-                placeholder="Search Doctors..."
-                value={searchTerm}
-                onChange={handleSearchTermChange}
-                className="border-2 relative border-black col-span-1 sm:col-span-2 md:col-span-3 rounded-lg px-4 py-2 text-[14px] sm:text-[16px] md:text-[18px] text-[#2D2D2D] font-[600]"
-              />
-               {isDropdownVisible && searchTerm && (
-              <div className="">
-                <ul className="bg-white border-2 border-gray-300 rounded-lg max-h-[200px] mt-2 absolute top-0 right-00 z-10 cursor-pointer">
-                  {filteredDoctors.length > 0 ? (
-                    filteredDoctors.map((doctor, index) => (
-                      <li
-                        onClick={() => {
-                          setSearchTerm(doctor.name);
-                          localStorage.setItem("name", doctor.name);
-                          setIsDropdownVisible(false);
-                        }}
-                        key={index}
-                        className="p-2 text-[#2D2D2D] text-[14px] md:text-[18px] hover:bg-gray-200"
-                      >
-                        {doctor.name}
-                      </li>
-                    ))
-                  ) : (
-                    <li className="p-2 text-[#2D2D2D] text-[14px] md:text-[18px]">
-                      No doctors found
-                    </li>
-                  )}
-                </ul>
-              </div>
-            )}
-           </div>
-              <select
-                onChange={handleCategoryChange}
-                className="col-span-1 sm:col-span-1 md:col-span-2 text-[14px] sm:text-[14px] md:text-[16px] text-[#2D2D2D] font-[500] py-[2px] pl-2 rounded-lg h-[44px]"
-              >
-                <option value="">Select Category</option>
-                {options.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-              <Link
-                className="col-span-1 sm:col-span-1 md:col-span-1 bg-[#b8dbb8] hover:bg-[#43a047] hover:text-white text-[#3d3d3d] text-[14px] sm:text-[16px] md:text-[20px] rounded-lg px-4 h-[44px] flex items-center justify-center"
-                href="/dashboard"
-              >
-                Search
-              </Link>
-            </div>
-
-           
-          </div>
+        <div>
+          <p className="text-[16px] md:text-[20px] text-[#fff] font-[700]">
+            Live Doctors
+          </p>
+          <span className="text-[16px] md:text-[20px] text-[#fff] font-[700]">
+            500
+          </span>
         </div>
       </div>
+      <div className="bg-[#003A9B] p-6 rounded-lg w-full grid grid-cols-1 sm:grid-cols-3 md:grid-cols-6 gap-2">
+        <div className="relative col-span-1 sm:col-span-2 md:col-span-3">
+          <input
+            type="text"
+            placeholder="Search Doctors..."
+            value={searchTerm}
+            onChange={handleSearchTermChange}
+            className="border-2 border-black rounded-lg px-4 py-2 text-[14px] sm:text-[16px] md:text-[18px] text-[#2D2D2D] font-[600] w-full"
+          />
+          {isDropdownVisible && searchTerm && (
+            <div className="absolute top-full mt-2 w-full z-10">
+              <ul className="bg-white border-2 border-gray-300 rounded-lg max-h-[200px] overflow-y-auto">
+                {filteredDoctors.length > 0 ? (
+                  filteredDoctors.map((doctor, index) => (
+                    <li
+                      onClick={() => {
+                        setSearchTerm(doctor.name);
+                        localStorage.setItem("name", doctor.name);
+                        setIsDropdownVisible(false);
+                      }}
+                      key={index}
+                      className="p-2 text-[#2D2D2D] text-[14px] md:text-[18px] hover:bg-gray-200"
+                    >
+                      {doctor.name}
+                    </li>
+                  ))
+                ) : (
+                  <li className="p-2 text-[#2D2D2D] text-[14px] md:text-[18px]">
+                    No doctors found
+                  </li>
+                )}
+              </ul>
+            </div>
+          )}
+        </div>
+        <select
+          onChange={handleCategoryChange}
+          className="col-span-1 sm:col-span-1 md:col-span-2 text-[14px] sm:text-[14px] md:text-[16px] text-[#2D2D2D] font-[500] py-[2px] pl-2 rounded-lg h-[44px]"
+        >
+          <option value="">Select Category</option>
+          {options.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+        <Link
+          className="col-span-1 sm:col-span-1 md:col-span-1 bg-[#b8dbb8] hover:bg-[#43a047] hover:text-white text-[#3d3d3d] text-[14px] sm:text-[16px] md:text-[20px] rounded-lg px-4 h-[44px] flex items-center justify-center"
+          href="/dashboard"
+        >
+          Search
+        </Link>
+      </div>
+    </div>
+  </div>
+</div>
+
     </div>
   );
 }
