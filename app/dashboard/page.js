@@ -5,8 +5,14 @@ import Image from "next/image";
 import Link from "next/link";
 import AllSpecialty from "../component/menu";
 import ExperienceRange from "./experienceRang";
-import { AiOutlineDown, AiOutlineSearch, AiOutlineUp,AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
-import { useRouter } from "next/navigation";
+import {
+  AiOutlineDown,
+  AiOutlineSearch,
+  AiOutlineUp,
+  AiOutlineMenu,
+  AiOutlineClose,
+} from "react-icons/ai";
+import ImageGallery from "./ImageGallery";
 
 export default function AllDoctors() {
   const [showDegree, setShowDegree] = useState(true);
@@ -20,13 +26,13 @@ export default function AllDoctors() {
   const [selectedSpecialties, setSelectedSpecialties] = useState([]);
   const [selectedHospital, setSelectedHospital] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState([]);
-  const [selectedTime, setSelectedTime] = useState('morning');
+  const [selectedTime, setSelectedTime] = useState("morning");
   const [searchQuery, setSearchQuery] = useState("");
   const [experienceRange, setExperienceRange] = useState([0, 55]);
   const [showSidebar, setShowSidebar] = useState(false);
   const [doctors, setDoctors] = useState([]);
   const sidebarRef = useRef(null);
-  
+
   const handleMenuClick = () => {
     setShowSidebar(!showSidebar);
   };
@@ -41,10 +47,10 @@ export default function AllDoctors() {
     const fetchDoctors = async () => {
       const name = localStorage.getItem("name");
       const category = localStorage.getItem("category");
-      console.log(name, category,'i am localstorage');
+      console.log(name, category, "i am localstorage");
       if (name && category) {
         try {
-          console.log(name,category )
+          console.log(name, category);
           const response = await fetch(
             `https://admin.treatmentopportunity.com/api/doctors/search?name=${name}&category=${category}`
           );
@@ -53,17 +59,17 @@ export default function AllDoctors() {
             throw new Error("Failed to fetch data");
           }
           const data = await response.json();
-          
-          console.log('Doctores',data.data);
-          setDoctors( data.data);
+
+          console.log("Doctores", data.data);
+          setDoctors(data.data);
         } catch (error) {
           console.error("Error fetching options:", error);
         }
       }
-    }
+    };
 
     fetchDoctors();
-   
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
@@ -74,28 +80,38 @@ export default function AllDoctors() {
     switch (type) {
       case "degree":
         setSelectedDegrees((prev) =>
-          prev.includes(value) ? prev.filter((d) => d !== value) : [...prev, value]
+          prev.includes(value)
+            ? prev.filter((d) => d !== value)
+            : [...prev, value]
         );
         break;
       case "designation":
         setSelectedDesignations((prev) =>
-          prev.includes(value) ? prev.filter((d) => d !== value) : [...prev, value]
+          prev.includes(value)
+            ? prev.filter((d) => d !== value)
+            : [...prev, value]
         );
         break;
       case "specialty":
         setSelectedSpecialties((prev) =>
-          prev.includes(value) ? prev.filter((s) => s !== value) : [...prev, value]
+          prev.includes(value)
+            ? prev.filter((s) => s !== value)
+            : [...prev, value]
         );
         break;
       case "hospital":
         setSelectedHospital((prev) =>
-            prev.includes(value) ? prev.filter((h) => h !== value) : [...prev, value]
-          );
+          prev.includes(value)
+            ? prev.filter((h) => h !== value)
+            : [...prev, value]
+        );
         break;
-        case "location":
-            setSelectedLocation((prev) =>
-              prev.includes(value) ? prev.filter((l) => l !== value) : [...prev, value]
-            );
+      case "location":
+        setSelectedLocation((prev) =>
+          prev.includes(value)
+            ? prev.filter((l) => l !== value)
+            : [...prev, value]
+        );
         break;
       default:
         break;
@@ -115,26 +131,32 @@ export default function AllDoctors() {
     const hospitalMatch = selectedHospital.length
       ? selectedHospital.includes(product.hospital)
       : true;
-      const locationMatch = selectedLocation.length
+    const locationMatch = selectedLocation.length
       ? selectedLocation.includes(product.location)
       : true;
-      const experienceMatch =
-      product.experience >= experienceRange[0] && product.experience <= experienceRange[1];
+    const experienceMatch =
+      product.experience >= experienceRange[0] &&
+      product.experience <= experienceRange[1];
 
-      const searchMatch = (product.name && product.name.toLowerCase().includes(searchQuery.toLowerCase())) ||
-      (product.specialty && product.specialty.toLowerCase().includes(searchQuery.toLowerCase())) ||
-      (product.hospital && product.hospital.toLowerCase().includes(searchQuery.toLowerCase())) ||
-      (product.location && product.location.toLowerCase().includes(searchQuery.toLowerCase()));
+    const searchMatch =
+      (product.name &&
+        product.name.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (product.specialty &&
+        product.specialty.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (product.hospital &&
+        product.hospital.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (product.location &&
+        product.location.toLowerCase().includes(searchQuery.toLowerCase()));
 
-      return (
-        degreeMatch &&
-        designationMatch &&
-        specialtyMatch &&
-        hospitalMatch &&
-        locationMatch &&
-        experienceMatch &&
-        searchMatch
-      );
+    return (
+      degreeMatch &&
+      designationMatch &&
+      specialtyMatch &&
+      hospitalMatch &&
+      locationMatch &&
+      experienceMatch &&
+      searchMatch
+    );
   });
 
   const days = [
@@ -534,6 +556,7 @@ export default function AllDoctors() {
                   className="flex justify-between p-4 my-4 bg-white border rounded-lg shadow-lg max-sm:flex-col sm:items-center max-sm:p-2"
                 >
                   <div>
+                    <ImageGallery />
                     <p className="text-xl font-semibold text-gray-600 max-sm:text-md sm:my-2">
                       {doctor.categories.title}
                     </p>
@@ -554,16 +577,20 @@ export default function AllDoctors() {
                     </p>
                   </div>
                   <div className="flex justify-between sm:flex-col sm:gap-16 sm:items-end max-sm:my-4">
-                    <Image
-                      src={doctor.img}
-                      alt="doctor logo"
-                      className="max-sm:h[90px] max-sm:w-[80px]"
-                      width={150}
-                      height={150}
-                    />
-                    <button className="max-sm:mt-[2px] mt-2 px-2 py-2 text-green-600 rounded-lg bg-slate-300">
-                      Book Appointment
-                    </button>
+                    <div>
+                      <Image
+                        src={doctor.img}
+                        alt="doctor-logo"
+                        className="max-sm:h[90px] max-sm:w-[80px]"
+                        width={150}
+                        height={150}
+                      />
+                    </div>
+                    <div>
+                      <button className="max-sm:mt-[2px] max-sm:h-[40px] mt-2 px-2 py-2 text-green-600 rounded-lg bg-slate-300">
+                        Book Appointment
+                      </button>
+                    </div>
                   </div>
                 </div>
               ))}
