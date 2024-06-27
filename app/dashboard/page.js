@@ -13,6 +13,7 @@ import {
   AiOutlineClose,
 } from "react-icons/ai";
 import ImageGallery from "./ImageGallery";
+import Logo from "./logo";
 
 export default function AllDoctors() {
   const [showDegree, setShowDegree] = useState(true);
@@ -553,9 +554,9 @@ export default function AllDoctors() {
               {doctors.map((doctor) => (
                 <div
                   key={doctor.id}
-                  className="flex justify-between p-4 my-4 bg-white border rounded-lg shadow-lg max-sm:flex-col sm:items-center max-sm:p-2"
+                  className="flex justify-between p-4 my-4 bg-white border rounded-lg shadow-lg"
                 >
-                  <div>
+                  <div className="">
                     <ImageGallery />
                     <p className="text-xl font-semibold text-gray-600 max-sm:text-md sm:my-2">
                       {doctor.categories.title}
@@ -565,7 +566,6 @@ export default function AllDoctors() {
                         {doctor.name}
                       </h3>
                     </Link>
-                    {/* <p className="text-gray-600 max-sm:text-[16px] max-sm:font-[500]">{doctor.degrees.join(", ")}</p> */}
                     <p className="text-gray-600 max-sm:text-[16px] max-sm:font-[500]">
                       {doctor.experience}+ Years of Experience
                     </p>
@@ -576,15 +576,9 @@ export default function AllDoctors() {
                       {doctor.district.title}
                     </p>
                   </div>
-                  <div className="flex justify-between sm:flex-col sm:gap-16 sm:items-end max-sm:my-4">
+                  <div className="">
                     <div>
-                      <Image
-                        src={doctor.img}
-                        alt="doctor-logo"
-                        className="max-sm:h[90px] max-sm:w-[80px]"
-                        width={150}
-                        height={150}
-                      />
+                     <Logo/>
                     </div>
                     <div>
                       <button className="max-sm:mt-[2px] max-sm:h-[40px] mt-2 px-2 py-2 text-green-600 rounded-lg bg-slate-300">

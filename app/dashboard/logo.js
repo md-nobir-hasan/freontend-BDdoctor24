@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 
-const ImageGallery = () => {
+const Logo = () => {
   const [images, setImages] = useState([]);
 
   useEffect(() => {
@@ -18,12 +18,12 @@ const ImageGallery = () => {
   return (
     <div className="">
       {images.map((img) => (
-        <div key={img.id} className="p-4 bg-white rounded-lg shadow-lg">
+        <div key={img.id} className="p-4 bg-white rounded-lg shadow-md">
           <Image
             src={img.url}
-            alt={img.title}
-            width={100}
-            height={80}
+            alt={img.titl}
+            width={20}
+            height={10}
             className="w-full h-auto"
           />
         </div>
@@ -32,4 +32,4 @@ const ImageGallery = () => {
   );
 };
 
-export default ImageGallery;
+export default Logo;
