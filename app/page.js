@@ -180,7 +180,7 @@ export default function Home() {
                               setIsDropdownVisible(false);
                             }}
                             key={index}
-                            className="p-2 text-[#2D2D2D] text-[14px] md:text-[18px] hover:bg-gray-200"
+                            className="p-2 text-[#2D2D2D] text-[14px] md:text-[18px] hover:bg-gray-200 cursor-pointer"
                           >
                             {doctor.name}
                           </li>

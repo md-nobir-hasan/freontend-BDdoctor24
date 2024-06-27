@@ -18,12 +18,12 @@ const Logo = () => {
   return (
     <div className="">
       {images.map((img) => (
-        <div key={img.id} className="p-4 bg-white rounded-lg shadow-md">
+        <div key={img.id} className=" p-2 bg-white">
           <Image
             src={img.url}
             alt={img.titl}
-            width={20}
-            height={10}
+            width={100}
+            height={50}
             className="w-full h-auto"
           />
         </div>
