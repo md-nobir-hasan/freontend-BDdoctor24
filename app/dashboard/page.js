@@ -1,7 +1,13 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import React from "react";
-import { FaHeart, FaGraduationCap, FaStar, FaHospital, FaCalendarAlt } from 'react-icons/fa';
+import {
+  FaHeart,
+  FaGraduationCap,
+  FaStar,
+  FaHospital,
+  FaCalendarAlt,
+} from "react-icons/fa";
 import Link from "next/link";
 import AllSpecialty from "../component/menu";
 import ExperienceRange from "./experienceRang";
@@ -171,7 +177,7 @@ export default function AllDoctors() {
   ];
 
   return (
-    <div className="doctors grid grid-cols-5 max-md:grid-cols-1 max-xl:grid-cols-7 gap-6 max-sm:gap-2 max-lg:gap-4 max-xl:pr-[50px] pr-[100px] pl-[100px] max-xl:pl-[50px] max-sm:px-[10px] max-md:px-[20px] max-lg:px-[30px]">
+    <div className="doctors grid grid-cols-5 max-md:grid-cols-1 max-xl:grid-cols-7 max-sm:gap-2 max-lg:gap-4 px-[100px] max-2xl:px-[60px] max-xl:px-[40px] max-sm:px-[10px] max-md:px-[20px] max-lg:px-[25px]">
       <div className="max-xl:col-span-2 max-md:mt-[10px]">
         <button
           onClick={handleMenuClick}
@@ -183,11 +189,11 @@ export default function AllDoctors() {
           ref={sidebarRef}
           className={`transition-transform duration-300 transform md:transform-none ${
             showSidebar ? "translate-x-0" : "-translate-x-full"
-          } absolute inset-y-0 max-sm:top-[10px] max-md:top-[40px] max-md:left-0 max-lg:w-[13rem] w-64 bg-white shadow-lg md:relative sm::translate-x-0 max-xl:col-span-2`}
+          } absolute inset-y-0 max-sm:top-[10px] max-md:top-[40px] max-md:left-0 lg:w-64 bg-white shadow-lg md:relative sm::translate-x-0 max-xl:col-span-2`}
         >
           <div>
             <div className="flex items-center justify-between p-4 my-4 bg-white rounded-lg shadow-lg max-sm:my-2">
-              <p className="text-xl">
+              <p className="text-xl max-lg:text-[16px]">
                 Filter:{" "}
                 {selectedDegrees.length +
                   selectedDesignations.length +
@@ -196,7 +202,7 @@ export default function AllDoctors() {
                   selectedLocation.length}
               </p>
               <button
-                className="px-4 py-1 text-xl bg-slate-200 max-xl:px-2"
+                className="px-4 max-lg:px-2 max-lg:py-[2px] text-xl max-lg:text-[16px] bg-slate-200 max-xl:px-2"
                 onClick={() => {
                   setSelectedDegrees([]);
                   setSelectedDesignations([]);
@@ -215,7 +221,7 @@ export default function AllDoctors() {
                 <input
                   type="search"
                   placeholder="Search Doctors"
-                  className="w-full placeholder:text-green-900 placeholder:text-[16px] pl-4 py-2 rounded-full bg-white border-2 border-green-900 focus:outline-none"
+                  className="w-full placeholder:text-green-900 placeholder:text-[14px] pl-4 py-2 rounded-full bg-white border-2 border-green-900 focus:outline-none"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
@@ -235,14 +241,16 @@ export default function AllDoctors() {
               <div className="flex flex-col p-4 bg-white rounded-lg shadow-lg">
                 <div className="flex justify-between">
                   <div className="mb-2">
-                    <p className="max-lg:text-[16px] text-xl font-semibold">Degree</p>
+                    <p className="max-lg:text-[16px] text-xl font-semibold">
+                      Degree
+                    </p>
                   </div>
                   <div>
                     <button onClick={() => setShowDegree(!showDegree)}>
                       {showDegree ? (
-                        <AiOutlineDown size={20} />
+                        <AiOutlineDown size={18} />
                       ) : (
-                        <AiOutlineUp size={20} />
+                        <AiOutlineUp size={18} />
                       )}
                     </button>
                   </div>
@@ -276,16 +284,18 @@ export default function AllDoctors() {
               <div className="flex flex-col p-4 bg-white rounded-lg shadow-lg">
                 <div className="flex justify-between">
                   <div className="mb-2">
-                    <p className="text-xl max-lg:text-[16px] font-semibold">Designation</p>
+                    <p className="text-xl max-lg:text-[16px] font-semibold">
+                      Designation
+                    </p>
                   </div>
                   <div>
                     <button
                       onClick={() => setShowDesignation(!showDesignation)}
                     >
                       {showDesignation ? (
-                        <AiOutlineDown size={20} />
+                        <AiOutlineDown size={18} />
                       ) : (
-                        <AiOutlineUp size={20} />
+                        <AiOutlineUp size={18} />
                       )}
                     </button>
                   </div>
@@ -326,14 +336,16 @@ export default function AllDoctors() {
               <div className="flex flex-col p-4 bg-white rounded-lg shadow-lg">
                 <div className="flex justify-between">
                   <div className="mb-2">
-                    <p className="text-xl max-lg:text-[16px] font-semibold">Specialty wise</p>
+                    <p className="text-xl max-lg:text-[16px] font-semibold">
+                      Specialty wise
+                    </p>
                   </div>
                   <div>
                     <button onClick={() => setShowSpecialty(!showSpecialty)}>
                       {showSpecialty ? (
-                        <AiOutlineDown size={20} />
+                        <AiOutlineDown size={18} />
                       ) : (
-                        <AiOutlineUp size={20} />
+                        <AiOutlineUp size={18} />
                       )}
                     </button>
                   </div>
@@ -378,14 +390,16 @@ export default function AllDoctors() {
               <div className="flex flex-col p-4 bg-white rounded-lg shadow-lg">
                 <div className="flex justify-between">
                   <div className="mb-2">
-                    <p className="text-xl max-lg:text-[16px] font-semibold">Hospital wise</p>
+                    <p className="text-xl max-lg:text-[16px] font-semibold">
+                      Hospital wise
+                    </p>
                   </div>
                   <div>
                     <button onClick={() => setShowHospital(!showHospital)}>
                       {showHospital ? (
-                        <AiOutlineDown size={20} />
+                        <AiOutlineDown size={18} />
                       ) : (
-                        <AiOutlineUp size={20} />
+                        <AiOutlineUp size={18} />
                       )}
                     </button>
                   </div>
@@ -429,16 +443,18 @@ export default function AllDoctors() {
               <div className="flex flex-col p-4 bg-white rounded-lg shadow-lg">
                 <div className="flex justify-between">
                   <div className="mb-2">
-                    <p className="text-xl max-lg:text-[16px] font-semibold">Practicing day</p>
+                    <p className="text-xl max-lg:text-[16px] font-semibold">
+                      Practicing day
+                    </p>
                   </div>
                   <div>
                     <button
                       onClick={() => setShowPactecingDay(!showPactecingDay)}
                     >
                       {showPactecingDay ? (
-                        <AiOutlineDown size={20} />
+                        <AiOutlineDown size={18} />
                       ) : (
-                        <AiOutlineUp size={20} />
+                        <AiOutlineUp size={18} />
                       )}
                     </button>
                   </div>
@@ -495,14 +511,16 @@ export default function AllDoctors() {
               <div className="flex flex-col p-4 bg-white rounded-lg shadow-lg">
                 <div className="flex justify-between">
                   <div className="mb-2">
-                    <p className="text-xl max-lg:text-[16px] font-semibold">Location</p>
+                    <p className="text-xl max-lg:text-[16px] font-semibold">
+                      Location
+                    </p>
                   </div>
                   <div>
                     <button onClick={() => setShowLocation(!showLocation)}>
                       {showLocation ? (
-                        <AiOutlineDown size={20} />
+                        <AiOutlineDown size={18} />
                       ) : (
-                        <AiOutlineUp size={20} />
+                        <AiOutlineUp size={18} />
                       )}
                     </button>
                   </div>
@@ -545,15 +563,18 @@ export default function AllDoctors() {
         </aside>
       </div>
       <div className="col-span-4 max-xl:col-span-5">
-        <div className="max-sm:mt-8 max-md:mt-4 mb-4">
+        <div className="max-sm:mt-8 max-md:mt-4 mt-4 mb-4">
           <AllSpecialty />
         </div>
         <div className="grid grid-cols-6">
-          <div className="col-span-5">
+          <div className="col-span-5 max-xl:col-span-6">
             <div>
               {doctors.map((doctor) => (
-                  <div key={doctor.id} className="flex flex-col lg:flex-row items-center gap-2 p-4 my-4 bg-white border rounded-lg">
-                  <div className="flex flex-col sm:flex-row items-center gap-2 w-full">
+                <div
+                  key={doctor.id}
+                  className="flex flex-col lg:flex-row items-center max-lg:gap-4 gap-2 p-4 my-4 bg-white border rounded-lg"
+                >
+                  <div className="flex flex-col sm:flex-row items-center max-lg:gap-4 gap-2 w-full">
                     <div className="flex-shrink-0">
                       <ImageGallery />
                     </div>
@@ -571,9 +592,7 @@ export default function AllDoctors() {
                       </Link>
                       <div className="flex items-center text-gray-600 mb-2">
                         <FaGraduationCap className="mr-2" />
-                        <p className="text-[16px]">
-                          {doctor.qualifications}
-                        </p>
+                        <p className="text-[16px]">{doctor.qualifications}</p>
                       </div>
                       <div className="flex items-center text-gray-600 mb-2">
                         <FaStar className="mr-2" />
@@ -583,20 +602,20 @@ export default function AllDoctors() {
                       </div>
                       <div className="flex items-center text-gray-600 mb-2">
                         <FaHospital className="mr-2" />
-                        <p className="text-[16px]">
-                          {doctor.chamber.title}
-                        </p>
+                        <p className="text-[16px]">{doctor.chamber.title}</p>
                       </div>
                     </div>
                   </div>
-                  <div className="flex flex-col justify-between items-center sm:items-end">
-                    <div className="mb-4">
+                  <div className="flex justify-between items-center w-full lg:flex-col lg:w-auto">
+                    <div className="lg:mb-4 flex items-start">
                       <Logo />
                     </div>
-                    <button className="w-44 flex items-center justify-center gap-[2px] px-[2px] py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-                      <FaCalendarAlt className="mr-2" />
-                      Book Appointment
-                    </button>
+                    <div>
+                      <button className="w-[12rem] h-[40px] flex items-center justify-center gap-2 px-2 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                        <FaCalendarAlt className="mr-2" />
+                        <span>Book Appointment</span>
+                      </button>
+                    </div>
                   </div>
                 </div>
               ))}

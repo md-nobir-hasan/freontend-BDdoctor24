@@ -17,9 +17,9 @@ export default function ExperienceRange({ experience, setExperience }) {
   return (
     <div className="flex flex-col p-4 shadow-lg rounded-lg bg-white">
       <div className="flex justify-between items-center mb-2">
-        <p className="text-xl font-semibold">Experience (Yrs)</p>
+        <p className="text-xl max-lg:text-[16px] font-semibold">Experience (Yrs)</p>
         <button onClick={handleShowClick}>
-          {show ? <AiOutlineDown size={20} /> : <AiOutlineUp size={20} />}
+          {show ? <AiOutlineDown size={18} /> : <AiOutlineUp size={18} />}
         </button>
       </div>
       {show && (

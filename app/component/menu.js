@@ -31,11 +31,11 @@ export default function AllSpecialty() {
   return (
     <div className="flex sm:flex-row justify-between items-center max-sm:text-[18px] max-sm:font-[500] text-xl font-semibold max-sm:px-2 sm:px-8 py-4 max-sm:py-2 max-sm:mt-[4px] bg-white shadow-lg rounded-lg">
     <div className="flex items-center justify-center">
-      <p className="max-sm:text-[14px] text-center sm:text-left">All Specialty</p>
+      <p className="max-sm:text-[14px] max-lg:text-[18px] text-center sm:text-left">All Specialty</p>
     </div>
-    <div className="flex items-center max-sm:gap-[2px] gap-2 max-sm:text-[14px] max-sm:font-[500] text-xl font-semibold">
+    <div className="flex items-center max-sm:gap-[2px] gap-2 max-sm:text-[14px] max-lg:text-[18px] max-sm:font-[500] text-xl font-semibold">
       <p>Show</p>
-      <select className="bg-slate-300 max-sm:text-[12px] text-black rounded-lg max-sm:px-2 px-4 py-2 max-sm:w-32">
+      <select className="bg-slate-300 max-sm:text-[12px] max-lg:text-[16px] text-black rounded-lg max-sm:px-2 px-4 py-2 max-sm:w-32">
         {options.map(option => (
           <option key={option.value} value={option.value}>
             {option.label}

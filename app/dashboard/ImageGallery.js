@@ -37,7 +37,7 @@ const ImageGallery = () => {
   return (
     <div className="flex flex-wrap justify-center">
       {images.map((img) => (
-        <div key={img.id} className="p-2 bg-white m-2"  style={{ width: '200px', height: '200px' }}>
+        <div key={img.id} className="lg:p-2 bg-white lg:m-2"  style={{ width: '200px', height: '200px' }}>
           <Image
             src={img.url}
             alt='img.title'
