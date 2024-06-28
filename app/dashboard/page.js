@@ -31,7 +31,7 @@ export default function AllDoctors() {
   const [selectedDegrees, setSelectedDegrees] = useState([]);
   const [selectedDesignations, setSelectedDesignations] = useState([]);
   const [selectedSpecialties, setSelectedSpecialties] = useState([]);
-  const [selectedHospital, setSelectedHospital] = useState([]);
+  const [selectedHospitals, setSelectedHospitals] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState([]);
   const [selectedTime, setSelectedTime] = useState("morning");
   const [searchQuery, setSearchQuery] = useState("");
@@ -84,87 +84,67 @@ export default function AllDoctors() {
   });
 
   const handleCheckboxChange = (type, value) => {
+    const updateState = (prevState, value) =>
+      prevState.includes(value)
+        ? prevState.filter((item) => item !== value)
+        : [...prevState, value];
+
     switch (type) {
       case "degree":
-        setSelectedDegrees((prev) =>
-          prev.includes(value)
-            ? prev.filter((d) => d !== value)
-            : [...prev, value]
-        );
+        setSelectedDegrees((prev) => updateState(prev, value));
         break;
       case "designation":
-        setSelectedDesignations((prev) =>
-          prev.includes(value)
-            ? prev.filter((d) => d !== value)
-            : [...prev, value]
-        );
+        setSelectedDesignations((prev) => updateState(prev, value));
         break;
       case "specialty":
-        setSelectedSpecialties((prev) =>
-          prev.includes(value)
-            ? prev.filter((s) => s !== value)
-            : [...prev, value]
-        );
+        setSelectedSpecialties((prev) => updateState(prev, value));
         break;
       case "hospital":
-        setSelectedHospital((prev) =>
-          prev.includes(value)
-            ? prev.filter((h) => h !== value)
-            : [...prev, value]
-        );
+        setSelectedHospitals((prev) => updateState(prev, value));
         break;
       case "location":
-        setSelectedLocation((prev) =>
-          prev.includes(value)
-            ? prev.filter((l) => l !== value)
-            : [...prev, value]
-        );
+        setSelectedLocation((prev) => updateState(prev, value));
         break;
       default:
         break;
     }
   };
 
-  const filteredDoctors = doctors.filter((product) => {
-    const degreeMatch = selectedDegrees.length
-      ? selectedDegrees.some((degree) => product.degrees.includes(degree))
-      : true;
-    const designationMatch = selectedDesignations.length
-      ? selectedDesignations.includes(product.designation)
-      : true;
-    const specialtyMatch = selectedSpecialties.length
-      ? selectedSpecialties.includes(product.specialty)
-      : true;
-    const hospitalMatch = selectedHospital.length
-      ? selectedHospital.includes(product.hospital)
-      : true;
-    const locationMatch = selectedLocation.length
-      ? selectedLocation.includes(product.location)
-      : true;
-    const experienceMatch =
-      product.experience >= experienceRange[0] &&
-      product.experience <= experienceRange[1];
-
-    const searchMatch =
-      (product.name &&
-        product.name.toLowerCase().includes(searchQuery.toLowerCase())) ||
-      (product.specialty &&
-        product.specialty.toLowerCase().includes(searchQuery.toLowerCase())) ||
-      (product.hospital &&
-        product.hospital.toLowerCase().includes(searchQuery.toLowerCase())) ||
-      (product.location &&
-        product.location.toLowerCase().includes(searchQuery.toLowerCase()));
+  const filteredDoctors = doctors.filter((doctor) => {
+    const filterByDegree =
+      selectedDegrees.length === 0 ||
+      selectedDegrees.some((degree) => doctor.qualifications.includes(degree));
+    const filterByDesignation =
+      selectedDesignations.length === 0 ||
+      selectedDesignations.includes(doctor.designation);
+    const filterBySpecialty =
+      selectedSpecialties.length === 0 ||
+      selectedSpecialties.includes(doctor.specialty);
+    const filterByHospital =
+      selectedHospitals.length === 0 ||
+      selectedHospitals.includes(doctor.hospital);
+    const filterByLocation =
+      selectedLocation.length === 0 ||
+      selectedLocation.includes(doctor.location);
+    const filterByExperience =
+      doctor.experience >= experienceRange[0] &&
+      doctor.experience <= experienceRange[1];
+    const filterByName =
+      searchQuery === "" ||
+      doctor.name.toLowerCase().includes(searchQuery.toLowerCase());
 
     return (
-      degreeMatch &&
-      designationMatch &&
-      specialtyMatch &&
-      hospitalMatch &&
-      locationMatch &&
-      experienceMatch &&
-      searchMatch
+      filterByDegree &&
+      filterByDesignation &&
+      filterBySpecialty &&
+      filterByHospital &&
+      filterByLocation &&
+      filterByExperience &&
+      filterByName
     );
   });
+
+  
 
   const days = [
     { id: "sat", label: "Sat" },
@@ -198,7 +178,7 @@ export default function AllDoctors() {
                 {selectedDegrees.length +
                   selectedDesignations.length +
                   selectedSpecialties.length +
-                  selectedHospital.length +
+                  selectedHospitals.length +
                   selectedLocation.length}
               </p>
               <button
@@ -207,7 +187,7 @@ export default function AllDoctors() {
                   setSelectedDegrees([]);
                   setSelectedDesignations([]);
                   setSelectedSpecialties([]);
-                  setSelectedHospital([]);
+                  setSelectedHospitals([]);
                   setSelectedLocation([]);
                   setExperienceRange([0, 55]);
                   setSearchQuery("");
