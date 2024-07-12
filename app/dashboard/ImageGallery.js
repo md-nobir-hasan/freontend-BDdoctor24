@@ -44,7 +44,7 @@ const ImageGallery = () => {
             width={200}
             height={200}
             className="rounded-md"
-            tyle={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
           />
         </div>
       ))}
